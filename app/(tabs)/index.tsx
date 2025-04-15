@@ -10,7 +10,7 @@ export default function HomeScreen() {
         <GuiButton onPress={() => console.log("Button Pressed!")}>
           <GuiText>Hello</GuiText>
         </GuiButton>
-        <GuiText>World</GuiText>
+        <GuiText color="secondary">World</GuiText>
       </GuiView>
     </GuiScreen>
   );
