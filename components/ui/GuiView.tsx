@@ -3,6 +3,6 @@ import { View } from "react-native";
 
 type Props = ViewProps;
 
-export function GuiView({ ...rest }: Props) {
-  return <View {...rest} />;
+export function GuiView({ children, ...rest }: Props) {
+  return <View {...rest}>{children}</View>;
 }

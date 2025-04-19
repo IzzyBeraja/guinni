@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { useColorScheme } from "react-native";
-import { PixelRatio } from "react-native";
 
 export interface GuiThemeSizes {
   spacingSize: {
@@ -11,6 +10,11 @@ export interface GuiThemeSizes {
     large: number;
     xlarge: number;
     xxlarge: number;
+  };
+  buttonSize: {
+    tight: number;
+    regular: number;
+    relaxed: number;
   };
   textSize: {
     xxsmall: number;
@@ -39,8 +43,11 @@ export interface GuiThemeColors {
 }
 
 export interface GuiTheme extends GuiThemeSizes, GuiThemeColors {}
-export type GuiSpacing = keyof GuiThemeSizes["spacingSize"];
+
+export type GuiSpacingSize = keyof GuiThemeSizes["spacingSize"];
+export type GuiButtonSize = keyof GuiThemeSizes["buttonSize"];
 export type GuiTextSize = keyof GuiThemeSizes["textSize"];
+
 export type GuiButtonColor = keyof GuiThemeColors["buttonColor"];
 export type GuiTextColor = keyof GuiThemeColors["textColor"];
 
@@ -53,6 +60,11 @@ const sizes = {
     large: 32,
     xlarge: 64,
     xxlarge: 128,
+  },
+  buttonSize: {
+    tight: 4,
+    regular: 8,
+    relaxed: 16,
   },
   textSize: {
     xxsmall: 10,
