@@ -26,9 +26,9 @@ export function GuiProfile({ image, name, size = "medium", ...rest }: Props) {
   return (
     <GuiView
       style={{
-        width: profile[size],
-        height: profile[size],
-        borderRadius: profile[size],
+        width: profile.size[size],
+        height: profile.size[size],
+        borderRadius: profile.size[size],
         overflow: "hidden",
         backgroundColor: "#ccc",
         justifyContent: "center",
@@ -39,7 +39,7 @@ export function GuiProfile({ image, name, size = "medium", ...rest }: Props) {
       {image ? (
         <Image source={image} />
       ) : (
-        <Text style={{ fontSize: profile[size] / 2 }}>{profileName}</Text>
+        <Text style={{ fontSize: profile.size[size] / 2 }}>{profileName}</Text>
       )}
     </GuiView>
   );

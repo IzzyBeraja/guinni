@@ -1,10 +1,10 @@
 import { Text } from "react-native";
-import type { GuiTextColor, GuiTextSize } from "@/hooks/useGuiTheme";
+import type { GuiTextColors, GuiTextSize } from "@/theme/GuiTextTheme";
 import { useGuiTheme } from "@/hooks/useGuiTheme";
 
 interface Props extends React.ComponentProps<typeof Text> {
-  color?: GuiTextColor;
-  size?: GuiTextSize;
+  color?: keyof GuiTextColors;
+  size?: keyof GuiTextSize;
 }
 
 export function GuiText({
@@ -12,11 +12,11 @@ export function GuiText({
   color = "primary",
   ...rest
 }: Props) {
-  const theme = useGuiTheme();
+  const { text } = useGuiTheme();
 
   return (
     <Text
-      style={{ fontSize: theme.textSize[size], color: theme.textColor[color] }}
+      style={{ fontSize: text.size[size], color: text.colors[color] }}
       {...rest}
     />
   );

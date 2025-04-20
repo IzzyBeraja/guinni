@@ -2,7 +2,7 @@ import { GuiText } from "@/components/ui/GuiText";
 import { GuiView } from "@/components/ui/GuiView";
 import { GuiScreen } from "@/components/ui/GuiScreen";
 import { GuiButton } from "@/components/ui/GuiButton";
-import { GuiProfile } from "@/components/ui/GuiProfile";
+import { GuiIcon } from "@/components/ui/GuiIcon";
 
 export default function HomeScreen() {
   return (
@@ -16,9 +16,9 @@ export default function HomeScreen() {
           <GuiText>Hello</GuiText>
         </GuiButton>
         <GuiText color="secondary">World</GuiText>
-        <GuiProfile size="small" name="Izzy Beraja" />
-        <GuiProfile size="medium" name="Izzy Beraja" />
-        <GuiProfile size="large" name="Izzy Beraja" />
+        <GuiIcon name="10k" size="small" />
+        <GuiIcon name="10k" />
+        <GuiIcon name="zoom-in" size="large" />
       </GuiView>
     </GuiScreen>
   );

@@ -1,15 +1,12 @@
 import { Pressable, PressableProps, StyleProp, ViewStyle } from "react-native";
 import { ReactElement } from "react";
-import {
-  GuiButtonColor,
-  GuiButtonSize,
-  useGuiTheme,
-} from "@/hooks/useGuiTheme";
+import { useGuiTheme } from "@/hooks/useGuiTheme";
+import { GuiButtonColors, GuiButtonSize } from "@/theme/GuiButtonTheme";
 
 interface Props extends PressableProps {
   children: ReactElement;
-  size?: GuiButtonSize;
-  color?: GuiButtonColor;
+  size?: keyof GuiButtonSize;
+  color?: keyof GuiButtonColors;
   fullWidth?: boolean;
   style?: StyleProp<ViewStyle>;
   onPress: () => void;
@@ -23,14 +20,14 @@ export function GuiButton({
   style,
   ...rest
 }: Props) {
-  const { buttonSize, buttonColor } = useGuiTheme();
+  const { button } = useGuiTheme();
 
   return (
     <Pressable
       style={[
         {
-          padding: buttonSize[size],
-          backgroundColor: buttonColor[color],
+          padding: button.size[size],
+          backgroundColor: button.colors[color],
           alignItems: "center",
         },
         fullWidth && { alignSelf: "stretch" },

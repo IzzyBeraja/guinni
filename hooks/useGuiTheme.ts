@@ -1,168 +1,34 @@
+import { GuiButtonTheme, guiButtonTheme } from "@/theme/GuiButtonTheme";
+import { guiIconTheme } from "@/theme/GuiIconTheme";
+import { GuiPillTheme, guiPillTheme } from "@/theme/GuiPillTheme";
+import { GuiProfileTheme, guiProfileTheme } from "@/theme/GuiProfileTheme";
+import { GuiSpacingTheme, guiSpacingTheme } from "@/theme/GuiSpacingTheme";
+import { GuiTextTheme, guiTextTheme } from "@/theme/GuiTextTheme";
 import { useMemo } from "react";
 import { useColorScheme } from "react-native";
 
-export interface GuiThemeSizes {
-  spacingSize: {
-    xxsmall: number;
-    xsmall: number;
-    small: number;
-    medium: number;
-    large: number;
-    xlarge: number;
-    xxlarge: number;
-  };
-  buttonSize: {
-    tight: number;
-    regular: number;
-    relaxed: number;
-  };
-  textSize: {
-    xxsmall: number;
-    xsmall: number;
-    small: number;
-    medium: number;
-    large: number;
-    xlarge: number;
-    xxlarge: number;
-  };
-  pillSize: {
-    small: number;
-    medium: number;
-    large: number;
-  };
-  profile: {
-    small: number;
-    medium: number;
-    large: number;
-  };
-}
-
 export interface GuiThemeColors {
-  backgroundColor: string;
-  buttonColor: {
-    primary: string;
-    secondary: string;
-    warning: string;
-    error: string;
-    success: string;
-  };
-  textColor: {
-    primary: string;
-    secondary: string;
-  };
-  pill: {
-    background: {
-      primary: string;
-      secondary: string;
-    };
-    text: {
-      primary: string;
-      secondary: string;
-    };
-  };
+  background: string;
 }
 
-export interface GuiTheme extends GuiThemeSizes, GuiThemeColors {}
+export type GuiTheme = {
+  pill: GuiPillTheme;
+  button: GuiButtonTheme;
+  text: GuiTextTheme;
+  profile: GuiProfileTheme;
+  spacing: GuiSpacingTheme;
+};
 
-export type GuiSpacingSize = keyof GuiThemeSizes["spacingSize"];
-export type GuiButtonSize = keyof GuiThemeSizes["buttonSize"];
-export type GuiTextSize = keyof GuiThemeSizes["textSize"];
-export type GuiPillSize = keyof GuiThemeSizes["pillSize"];
-export type GuiProfileSize = keyof GuiThemeSizes["profile"];
-
-export type GuiButtonColor = keyof GuiThemeColors["buttonColor"];
-export type GuiTextColor = keyof GuiThemeColors["textColor"];
-export type GuiPillColor = keyof GuiThemeColors["pill"]["background"];
-export type GuiPillTextColor = keyof GuiThemeColors["pill"]["text"];
-
-const sizes = {
-  spacingSize: {
-    xxsmall: 2,
-    xsmall: 4,
-    small: 8,
-    medium: 16,
-    large: 32,
-    xlarge: 64,
-    xxlarge: 128,
-  },
-  buttonSize: {
-    tight: 4,
-    regular: 8,
-    relaxed: 16,
-  },
-  textSize: {
-    xxsmall: 10,
-    xsmall: 12,
-    small: 14,
-    medium: 16,
-    large: 20,
-    xlarge: 34,
-    xxlarge: 48,
-  },
-  pillSize: {
-    small: 10,
-    medium: 12,
-    large: 16,
-  },
-  profile: {
-    small: 24,
-    medium: 36,
-    large: 64,
-  },
-} as const satisfies GuiThemeSizes;
-
-const colors = {
-  light: {
-    backgroundColor: "#ffffff",
-    buttonColor: {
-      primary: "#2196F3",
-      secondary: "#f6f6f6",
-      warning: "#ff9800",
-      error: "#b00020",
-      success: "#4CAF50",
-    },
-    textColor: {
-      primary: "#000000",
-      secondary: "#606060",
-    },
-    pill: {
-      background: {
-        primary: "rgba(33, 150, 243, 0.2)",
-        secondary: "rgba(246, 246, 246, 0.2)",
-      },
-      text: {
-        primary: "#000000",
-        secondary: "#303030",
-      },
-    },
-  },
-  dark: {
-    backgroundColor: "#4a4a4a",
-    buttonColor: {
-      primary: "#2196F3",
-      secondary: "#f6f6f6",
-      warning: "#ff9800",
-      error: "#b00020",
-      success: "#4CAF50",
-    },
-    textColor: {
-      primary: "#ffffff",
-      secondary: "#bfbfbf",
-    },
-    pill: {
-      background: {
-        primary: "rgba(33, 150, 243, 0.2)",
-        secondary: "rgba(246, 246, 246, 0.2)",
-      },
-      text: {
-        primary: "#ffffff",
-        secondary: "#a0a0a0",
-      },
-    },
-  },
-} as const satisfies Record<"light" | "dark", GuiThemeColors>;
-
-export function useGuiTheme(): GuiTheme {
+export function useGuiTheme() {
   const scheme = useColorScheme() ?? "light";
-  return useMemo(() => ({ ...colors[scheme], ...sizes }), [scheme]);
+  return useMemo(() => {
+    return {
+      text: guiTextTheme(scheme),
+      button: guiButtonTheme(scheme),
+      pill: guiPillTheme(scheme),
+      profile: guiProfileTheme(),
+      spacing: guiSpacingTheme(),
+      icon: guiIconTheme(scheme),
+    };
+  }, [scheme]);
 }
