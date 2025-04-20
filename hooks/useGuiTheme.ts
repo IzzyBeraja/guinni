@@ -25,6 +25,11 @@ export interface GuiThemeSizes {
     xlarge: number;
     xxlarge: number;
   };
+  pillSize: {
+    small: number;
+    medium: number;
+    large: number;
+  };
 }
 
 export interface GuiThemeColors {
@@ -40,6 +45,16 @@ export interface GuiThemeColors {
     primary: string;
     secondary: string;
   };
+  pill: {
+    background: {
+      primary: string;
+      secondary: string;
+    };
+    text: {
+      primary: string;
+      secondary: string;
+    };
+  };
 }
 
 export interface GuiTheme extends GuiThemeSizes, GuiThemeColors {}
@@ -47,9 +62,12 @@ export interface GuiTheme extends GuiThemeSizes, GuiThemeColors {}
 export type GuiSpacingSize = keyof GuiThemeSizes["spacingSize"];
 export type GuiButtonSize = keyof GuiThemeSizes["buttonSize"];
 export type GuiTextSize = keyof GuiThemeSizes["textSize"];
+export type GuiPillSize = keyof GuiThemeSizes["pillSize"];
 
 export type GuiButtonColor = keyof GuiThemeColors["buttonColor"];
 export type GuiTextColor = keyof GuiThemeColors["textColor"];
+export type GuiPillColor = keyof GuiThemeColors["pill"]["background"];
+export type GuiPillTextColor = keyof GuiThemeColors["pill"]["text"];
 
 const sizes = {
   spacingSize: {
@@ -75,6 +93,11 @@ const sizes = {
     xlarge: 34,
     xxlarge: 48,
   },
+  pillSize: {
+    small: 10,
+    medium: 12,
+    large: 16,
+  },
 } as const satisfies GuiThemeSizes;
 
 const colors = {
@@ -91,6 +114,16 @@ const colors = {
       primary: "#000000",
       secondary: "#606060",
     },
+    pill: {
+      background: {
+        primary: "rgba(33, 150, 243, 0.2)",
+        secondary: "rgba(246, 246, 246, 0.2)",
+      },
+      text: {
+        primary: "#000000",
+        secondary: "#303030",
+      },
+    },
   },
   dark: {
     backgroundColor: "#4a4a4a",
@@ -104,6 +137,16 @@ const colors = {
     textColor: {
       primary: "#ffffff",
       secondary: "#bfbfbf",
+    },
+    pill: {
+      background: {
+        primary: "rgba(33, 150, 243, 0.2)",
+        secondary: "rgba(246, 246, 246, 0.2)",
+      },
+      text: {
+        primary: "#ffffff",
+        secondary: "#a0a0a0",
+      },
     },
   },
 } as const satisfies Record<"light" | "dark", GuiThemeColors>;
