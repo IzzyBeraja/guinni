@@ -2,7 +2,7 @@ import { GuiPillColor, GuiPillSize, useGuiTheme } from "@/hooks/useGuiTheme";
 import { GuiView } from "@/components/ui/GuiView";
 import { Text } from "react-native";
 
-interface GuiPillProps extends React.ComponentProps<typeof GuiView> {
+interface Props extends React.ComponentProps<typeof GuiView> {
   text: string;
   size?: GuiPillSize;
   color?: GuiPillColor;
@@ -14,7 +14,7 @@ export function GuiPill({
   color = "primary",
   style,
   ...rest
-}: GuiPillProps) {
+}: Props) {
   const { pillSize, pill } = useGuiTheme();
 
   return (
