@@ -30,6 +30,11 @@ export interface GuiThemeSizes {
     medium: number;
     large: number;
   };
+  profile: {
+    small: number;
+    medium: number;
+    large: number;
+  };
 }
 
 export interface GuiThemeColors {
@@ -63,6 +68,7 @@ export type GuiSpacingSize = keyof GuiThemeSizes["spacingSize"];
 export type GuiButtonSize = keyof GuiThemeSizes["buttonSize"];
 export type GuiTextSize = keyof GuiThemeSizes["textSize"];
 export type GuiPillSize = keyof GuiThemeSizes["pillSize"];
+export type GuiProfileSize = keyof GuiThemeSizes["profile"];
 
 export type GuiButtonColor = keyof GuiThemeColors["buttonColor"];
 export type GuiTextColor = keyof GuiThemeColors["textColor"];
@@ -97,6 +103,11 @@ const sizes = {
     small: 10,
     medium: 12,
     large: 16,
+  },
+  profile: {
+    small: 24,
+    medium: 36,
+    large: 64,
   },
 } as const satisfies GuiThemeSizes;
 
