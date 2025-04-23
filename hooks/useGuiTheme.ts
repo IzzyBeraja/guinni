@@ -1,3 +1,4 @@
+import { guiBackgroundTheme, GuiBackgroundTheme } from "@/theme/GuiBackgroundTheme";
 import { GuiButtonTheme, guiButtonTheme } from "@/theme/GuiButtonTheme";
 import { guiIconTheme } from "@/theme/GuiIconTheme";
 import { GuiPillTheme, guiPillTheme } from "@/theme/GuiPillTheme";
@@ -12,6 +13,7 @@ export interface GuiThemeColors {
 }
 
 export type GuiTheme = {
+  background: GuiBackgroundTheme;
   pill: GuiPillTheme;
   button: GuiButtonTheme;
   text: GuiTextTheme;
@@ -23,6 +25,7 @@ export function useGuiTheme() {
   const scheme = useColorScheme() ?? "light";
   return useMemo(() => {
     return {
+      background: guiBackgroundTheme(scheme),
       text: guiTextTheme(scheme),
       button: guiButtonTheme(scheme),
       pill: guiPillTheme(scheme),

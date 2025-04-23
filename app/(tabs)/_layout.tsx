@@ -10,9 +10,7 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: Platform.select({
-          ios: {
-            paddingTop: 4,
-          },
+          ios: { paddingTop: 4 },
           default: {},
         }),
       }}
@@ -22,11 +20,7 @@ export default function TabLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({ focused }) => (
-            <GuiIcon
-              size="tab"
-              name="home-filled"
-              color={focused ? "tabFocused" : "tab"}
-            />
+            <GuiIcon size="tab" name="home-filled" color={focused ? "tabFocused" : "tab"} />
           ),
         }}
       />
@@ -35,11 +29,7 @@ export default function TabLayout() {
         options={{
           title: "Scan",
           tabBarIcon: ({ focused }) => (
-            <GuiIcon
-              size="tab"
-              name="camera-alt"
-              color={focused ? "tabFocused" : "tab"}
-            />
+            <GuiIcon size="tab" name="camera-alt" color={focused ? "tabFocused" : "tab"} />
           ),
         }}
       />
@@ -48,11 +38,7 @@ export default function TabLayout() {
         options={{
           title: "Me",
           tabBarIcon: ({ focused }) => (
-            <GuiIcon
-              size="tab"
-              name="person"
-              color={focused ? "tabFocused" : "tab"}
-            />
+            <GuiIcon size="tab" name="person" color={focused ? "tabFocused" : "tab"} />
           ),
         }}
       />

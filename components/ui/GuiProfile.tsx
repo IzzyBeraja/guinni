@@ -1,12 +1,13 @@
 import { GuiView } from "@/components/ui/GuiView";
-import { GuiProfileSize, useGuiTheme } from "@/hooks/useGuiTheme";
+import { useGuiTheme } from "@/hooks/useGuiTheme";
+import type { GuiProfileSize } from "@/theme/GuiProfileTheme";
 import { useMemo } from "react";
-import { Image, Text, ImageSourcePropType } from "react-native";
+import { Image, ImageSourcePropType, Text } from "react-native";
 
 interface Props extends React.ComponentProps<typeof GuiView> {
   image?: ImageSourcePropType;
   name: string;
-  size?: GuiProfileSize;
+  size?: keyof GuiProfileSize;
 }
 
 export function GuiProfile({ image, name, size = "medium", ...rest }: Props) {
@@ -16,7 +17,7 @@ export function GuiProfile({ image, name, size = "medium", ...rest }: Props) {
       name
         .split(" ")
         .filter(Boolean)
-        .map(n => n[0])
+        .map((n) => n[0])
         .join("")
         .slice(0, 2)
         .toUpperCase(),

@@ -1,11 +1,13 @@
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useGuiTheme } from "@/hooks/useGuiTheme";
+import { View } from "react-native";
 
-type Props = React.ComponentProps<typeof SafeAreaView>;
+type Props = React.ComponentProps<typeof View>;
 
 export function GuiScreen({ style, children, ...rest }: Props) {
+  const { background } = useGuiTheme();
   return (
-    <SafeAreaView style={[{ flex: 1 }, style]} {...rest}>
+    <View style={[{ flex: 1, backgroundColor: background.colors.default }, style]} {...rest}>
       {children}
-    </SafeAreaView>
+    </View>
   );
 }
