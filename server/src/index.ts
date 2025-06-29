@@ -1,8 +1,8 @@
-import { dbConnection } from "./db/index";
+import { dbConnection } from "./db/database";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { rootRouter } from "./routes";
+import { rootRouter } from "./routes/routes";
 
 // Load environment variables
 dotenv.config();
