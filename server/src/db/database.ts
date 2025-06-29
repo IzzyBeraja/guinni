@@ -1,6 +1,7 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as schema from "./database";
+
+import * as schema from "@/models/schema";
 
 export const dbConnection = () => {
   let pool: Pool;
