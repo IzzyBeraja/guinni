@@ -19,11 +19,6 @@ app.use(express.json());
 // Routes
 app.use("/api", rootRouter);
 
-// Health check endpoint
-app.get("/health", (_, res) => {
-  res.status(200).json({ status: "ok" });
-});
-
 const db = dbConnection();
 
 async function startServer() {
