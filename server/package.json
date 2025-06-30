@@ -10,10 +10,10 @@
     "db:generate": "drizzle-kit generate:pg",
     "db:migrate": "drizzle-kit push:pg",
     "db:studio": "drizzle-kit studio",
-    "db:up": "docker-compose up -d postgres",
-    "db:down": "docker-compose down",
-    "db:logs": "docker-compose logs -f postgres",
-    "db:reset": "docker-compose down -v && docker-compose up -d postgres"
+    "db:up": "docker-compose -f ../docker/docker-compose.yml --env-file ../docker/.env up -d postgres",
+    "db:down": "docker-compose -f ../docker/docker-compose.yml --env-file ../docker/.env down",
+    "db:logs": "docker-compose -f ../docker/docker-compose.yml --env-file ../docker/.env logs -f postgres",
+    "db:reset": "docker-compose -f ../docker/docker-compose.yml --env-file ../docker/.env down -v && docker-compose -f ../docker/docker-compose.yml --env-file ../docker/.env up -d postgres"
   },
   "dependencies": {
     "cors": "^2.8.5",
