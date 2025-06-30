@@ -18,28 +18,17 @@ export const dbConnection = () => {
       connectionString,
     });
 
-    // Test the connection with a ping
-    try {
-      const client = await pool.connect();
-      await client.query("SELECT 1");
-      client.release();
+    const client = await pool.connect();
+    await client.query("SELECT 1");
+    client.release();
 
-      db = drizzle(pool, { schema });
-      console.log("Database connection established");
+    db = drizzle(pool, { schema });
+    console.log("Database connection established");
 
-      return db;
-    } catch (error) {
-      console.error("Failed to connect to database:", error);
-      throw error; // Rethrow to be caught by caller
-    }
-  };
-
-  const get = () => {
-    if (!db) {
-      throw new Error("Database not initialized. Call setupDb first.");
-    }
     return db;
   };
+
+  const get = () => {};
 
   const close = async () => {
     if (pool) {

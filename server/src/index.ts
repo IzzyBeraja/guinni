@@ -1,57 +1,50 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import { Server } from "http";
 
 import { dbConnection } from "@/db/database";
 import { rootRouter } from "@/routes/routes";
 
-// Load environment variables
 dotenv.config();
 
-// Initialize Express app
 const app = express();
 const port = process.env.PORT || 3000;
+const db = dbConnection();
+let server: Server | undefined;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
-
-// Routes
 app.use("/api", rootRouter);
 
-const db = dbConnection();
+async function shutdown(err?: Error, code = 0) {
+  if (err != null) console.error("Fatal error:", err);
+  if (server != null) server.close();
+
+  await db.close();
+  process.exit(code);
+}
+
+// Global process event listeners
+process.on("uncaughtException", (err: Error) => shutdown(err, 1));
+process.on("unhandledRejection", (err: Error) => shutdown(err, 1));
+process.on("SIGINT", () => shutdown());
+process.on("SIGTERM", () => shutdown());
 
 async function startServer() {
   try {
-    // Initialize the database connection
     await db.setup();
 
-    // Start the server
-    app.listen(port, () => {
+    server = app.listen(port, () => {
       console.log(`Server running at http://localhost:${port}`);
     });
-  } catch (error) {
-    console.error("Failed to start server:", error);
+
+    server.on("error", (err: Error) => shutdown(err, 1));
+  } catch (err) {
+    await db.close();
+    console.error("Startup error:", err);
     process.exit(1);
   }
 }
 
-// Handle shutdown gracefully
-process.on("SIGTERM", () => {
-  console.log("SIGTERM received, shutting down gracefully");
-  db.close().then(() => {
-    console.log("Database connection closed");
-    process.exit(0);
-  });
-});
-
-process.on("SIGINT", () => {
-  console.log("SIGINT received, shutting down gracefully");
-  db.close().then(() => {
-    console.log("Database connection closed");
-    process.exit(0);
-  });
-});
-
-// Start the server
 startServer();
