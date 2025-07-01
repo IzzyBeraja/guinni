@@ -1,7 +1,11 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 
-import * as schema from "@/models/schema";
+import { users } from "@/models/tables/users";
+import { receipts } from "@/models/tables/receipts";
+import { receiptPermissions } from "@/models/tables/receiptPermissions";
+
+const schema = { users, receipts, receiptPermissions };
 
 export const dbConnection = () => {
   let pool: Pool;
