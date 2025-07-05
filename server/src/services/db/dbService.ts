@@ -42,7 +42,7 @@ export function dbService(config: DbConfig): DbService {
     const schema = { users, receipts, receiptPermissions };
     db = drizzle(pool, { schema });
 
-    console.log("Database connection established");
+    console.log("Database connection established 💾");
   };
 
   const getDb = (): NodePgDatabase<DatabaseSchema> => {
