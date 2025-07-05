@@ -6,7 +6,7 @@ import {
   json,
   integer,
 } from "drizzle-orm/pg-core";
-import { users } from "@/models/tables/users";
+import { users } from "@/models/tables/users.js";
 
 export const receipts = pgTable("receipts", {
   id: serial("id").primaryKey(),
