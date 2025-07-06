@@ -1,6 +1,5 @@
 import { Router, Request, Response } from "express";
-import { getHealth } from "@/controllers/health/getHealth";
-import { getDetailedHealth } from "@/controllers/health/getDetailedHealth";
+import { createReceipt } from "@/controllers/receipts/createReceipt";
 import { getAllUsers } from "@/controllers/users/getAllUsers";
 import { getUserById } from "@/controllers/users/getUserById";
 import { createUser } from "@/controllers/users/createUser";
@@ -18,9 +17,8 @@ rootRouter.get("/", (req: Request, res: Response) => {
   });
 });
 
-// Health routes
-rootRouter.get("/health", getHealth);
-rootRouter.get("/health/detailed", getDetailedHealth);
+// Receipt routes
+rootRouter.post("/receipt", createReceipt);
 
 // User routes
 rootRouter.get("/users", getAllUsers);
