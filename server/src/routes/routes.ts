@@ -1,10 +1,10 @@
 import { Router, Request, Response } from "express";
 import {
-  CreateReceiptInput,
-  createReceipt,
-} from "@/controllers/receipts/createReceipt";
+  PostInput as PostReceiptInput,
+  Post as PostReceipt,
+} from "@/controllers/receipts";
+import { Get as GetUsers } from "@/controllers/users";
 import { validate } from "@/middleware/validation.middleware";
-import { getAllUsers } from "@/controllers/users/getAllUsers";
 import { getUserById } from "@/controllers/users/getUserById";
 import { createUser } from "@/controllers/users/createUser";
 import { updateUser } from "@/controllers/users/updateUser";
@@ -22,10 +22,10 @@ rootRouter.get("/", (req: Request, res: Response) => {
 });
 
 // Receipt routes
-rootRouter.post("/receipt", validate(CreateReceiptInput), createReceipt);
+rootRouter.post("/receipts", validate(PostReceiptInput), PostReceipt);
 
 // User routes
-rootRouter.get("/users", getAllUsers);
+rootRouter.get("/users", GetUsers);
 rootRouter.get("/users/:id", getUserById);
 rootRouter.post("/users", createUser);
 rootRouter.put("/users/:id", updateUser);
