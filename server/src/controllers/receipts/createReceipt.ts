@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { AsyncHandler } from "@/types/handlers";
 import { type } from "arktype";
 
 export const CreateReceiptInput = type({
@@ -6,12 +6,26 @@ export const CreateReceiptInput = type({
   platform: "'android' | 'ios'",
 });
 
-export async function createReceipt(req: Request, res: Response) {
+export type CreateReceiptResponseBody = {
+  success: boolean;
+  details: typeof CreateReceiptInput.infer;
+};
+
+export type CreateReceiptHandler = {
+  Request: typeof CreateReceiptInput.infer;
+  Response: CreateReceiptResponseBody;
+  Error?: unknown;
+};
+
+export const createReceipt: AsyncHandler<CreateReceiptHandler> = async (
+  req,
+  res
+) => {
   console.log({ body: req.body });
   const { name, platform } = req.body;
 
-  return res.status(201).json({
+  res.status(201).json({
     success: true,
     details: { name, platform },
   });
-}
+};
