@@ -1,4 +1,4 @@
-import type { AsyncHandler } from "@/types/handlers";
+import type { AsyncHandler, CreateHandler } from "@/types/handlers";
 import { type } from "arktype";
 
 export const CreateReceiptInput = type({
@@ -11,18 +11,26 @@ export type CreateReceiptResponseBody = {
   details: typeof CreateReceiptInput.infer;
 };
 
-export type CreateReceiptHandler = {
+export type CreateReceiptHandler = CreateHandler<{
   Request: typeof CreateReceiptInput.infer;
   Response: CreateReceiptResponseBody;
-  Error?: unknown;
-};
+  Error: { success: false; error: string };
+}>;
 
 export const createReceipt: AsyncHandler<CreateReceiptHandler> = async (
   req,
   res
 ) => {
-  console.log({ body: req.body });
+  console.log({ body: req.body }, req.params);
   const { name, platform } = req.body;
+
+  if (name.length < 3) {
+    res.status(400).json({
+      success: false,
+      error: "Receipt name must be at least 3 characters long",
+    });
+    return;
+  }
 
   res.status(201).json({
     success: true,
