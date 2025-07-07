@@ -1,0 +1,7 @@
+[install]
+# Configure package installation
+registry = "https://registry.npmjs.org/"
+
+[install.cache]
+# Cache configuration  
+dir = "~/.bun/install/cache"

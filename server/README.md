@@ -1,13 +1,22 @@
 # Guinni Server
 
-Express.js server with TypeScript, Drizzle ORM, and PostgreSQL.
+Express.js server with TypeScript, Drizzle ORM, and PostgreSQL, powered by
+**Bun**.
+
+## Prerequisites
+
+Install Bun runtime:
+
+```bash
+curl -fsSL https://bun.sh/install | bash
+```
 
 ## Quick Start
 
 1. **Start the database** (see `docker/README.md` for setup):
 
    ```bash
-   npm run db:up
+   bun run db:up
    ```
 
 2. **Set up environment**:
@@ -17,16 +26,22 @@ Express.js server with TypeScript, Drizzle ORM, and PostgreSQL.
    # Edit .env with your DATABASE_URL
    ```
 
-3. **Initialize database**:
+3. **Install dependencies**:
 
    ```bash
-   npm run db:migrate
+   bun install
    ```
 
-4. **Start development server**:
+4. **Initialize database**:
 
    ```bash
-   npm run dev
+   bun run db:migrate
+   ```
+
+5. **Start development server**:
+
+   ```bash
+   bun run dev
    ```
 
 Server runs at `http://localhost:3000`

@@ -32,7 +32,7 @@ rootRouter.put("/users/:id", updateUser);
 rootRouter.delete("/users/:id", deleteUser);
 
 // 404 handler for unmatched API routes
-rootRouter.use("*", (req: Request, res: Response) => {
+rootRouter.use((req: Request, res: Response) => {
   res.status(404).json({
     success: false,
     error: "API endpoint not found",
