@@ -4,7 +4,7 @@ import express from "express";
 import { config } from "@/config";
 import { rootRouter } from "@/routes/routes";
 import { buildServices } from "@/services/services";
-import { servicesMiddleware } from "@/middleware/servicesMiddleware";
+import { servicesMiddleware } from "@/middleware/services.middleware";
 
 const app = express();
 const services = await buildServices(config);

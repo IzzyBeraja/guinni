@@ -1,5 +1,9 @@
 import { Router, Request, Response } from "express";
-import { createReceipt } from "@/controllers/receipts/createReceipt";
+import {
+  CreateReceiptInput,
+  createReceipt,
+} from "@/controllers/receipts/createReceipt";
+import { validate } from "@/middleware/validation.middleware";
 import { getAllUsers } from "@/controllers/users/getAllUsers";
 import { getUserById } from "@/controllers/users/getUserById";
 import { createUser } from "@/controllers/users/createUser";
@@ -18,7 +22,7 @@ rootRouter.get("/", (req: Request, res: Response) => {
 });
 
 // Receipt routes
-rootRouter.post("/receipt", createReceipt);
+rootRouter.post("/receipt", validate(CreateReceiptInput), createReceipt);
 
 // User routes
 rootRouter.get("/users", getAllUsers);
