@@ -2,9 +2,10 @@ import cors from "cors";
 import express from "express";
 
 import { config } from "@/config";
+import { errorHandler } from "@/middleware/error.middleware";
+import { servicesMiddleware } from "@/middleware/services.middleware";
 import { rootRouter } from "@/routes/routes";
 import { buildServices } from "@/services/services";
-import { servicesMiddleware } from "@/middleware/services.middleware";
 
 const app = express();
 const services = await buildServices(config);
@@ -14,6 +15,7 @@ app.use(servicesMiddleware(services));
 app.use(cors());
 app.use(express.json());
 app.use("/api", rootRouter);
+app.use(errorHandler);
 
 async function shutdown(err?: Error, code = 1): Promise<void> {
   if (err != null) console.error("Fatal error:", err);

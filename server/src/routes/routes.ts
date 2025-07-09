@@ -1,9 +1,6 @@
-import { Router, Request, Response } from "express";
-import {
-  PostInput as PostReceiptInput,
-  Post as PostReceipt,
-} from "@/controllers/receipts";
+import { Post as PostReceipt, PostInput as PostReceiptInput } from "@/controllers/receipts";
 import { Get as GetUsers } from "@/controllers/users";
+import { ErrorCode } from "@/errors/errors";
 import { validate } from "@/middleware/validation.middleware";
 import { NextFunction, Request, Response, Router } from "express";
 
@@ -25,10 +22,6 @@ rootRouter.post("/receipts", validate(PostReceiptInput), PostReceipt);
 rootRouter.get("/users", GetUsers);
 
 // 404 handler for unmatched API routes
-rootRouter.use((req: Request, res: Response) => {
-  res.status(404).json({
-    success: false,
-    error: "API endpoint not found",
-    path: req.originalUrl,
-  });
+rootRouter.use((_req: Request, _res: Response, next: NextFunction) => {
+  throw ErrorCode("NOT_FOUND");
 });

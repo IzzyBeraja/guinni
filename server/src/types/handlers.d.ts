@@ -1,60 +1,39 @@
-import { Request, Response, NextFunction, RequestHandler } from "express";
+// Simplified handler types for Express without `any` or `unknown` where possible
+import { NextFunction, Request, Response } from "express";
 
 /**
- * Defines the shape for an Express route handler's generics with proper constraints
+ * Defines optional generic parts of a route handler.
+ * - `Request` body type (defaults to undefined)
+ * - `Response` return body type (defaults to undefined)
+ * - `Error` error type (defaults to undefined)
+ * - `Params` route params (defaults to {})
+ * - `Query` query params (defaults to {})
+ * - `Middleware` extracted middleware state (defaults to {})
  */
-export type HandlerShape = {
-  Request: unknown;
-  Response: unknown;
-  Error?: unknown;
+export interface HandlerShape {
+  Request?: unknown;
+  Response?: unknown;
   Params?: Record<string, string>;
   Query?: Record<string, unknown>;
   Middleware?: Record<string, unknown>;
+}
+
+/**
+ * Infers each piece of HandlerShape, defaulting to undefined or empty object.
+ */
+export type CreateHandler<T extends HandlerShape = HandlerShape> = {
+  Request: T["Request"];
+  Response: T["Response"];
+  Params: T["Params"] extends Record<string, any> ? T["Params"] : {};
+  Query: T["Query"] extends Record<string, any> ? T["Query"] : {};
 };
 
 /**
- * Helper to extract a property or return never if not defined
+ * A typed async Express handler.
+ * Ensures req, res, next are strongly typed.
  */
-type ExtractOrNever<T, K extends string> = K extends keyof T ? T[K] : never;
-
-/**
- * Helper type that creates a handler shape with automatic never defaults for unused properties
- */
-export type CreateHandler<T extends Partial<HandlerShape>> = {
-  Request: ExtractOrNever<T, "Request">;
-  Response: ExtractOrNever<T, "Response">;
-  Error: ExtractOrNever<T, "Error">;
-  Params: ExtractOrNever<T, "Params">;
-  Query: ExtractOrNever<T, "Query">;
-  Middleware: ExtractOrNever<T, "Middleware">;
-};
-
-/**
- * A request type that enforces never types for undefined handler properties
- */
-type TypedRequest<T extends HandlerShape> = Omit<
-  Request<unknown, unknown, unknown, unknown>,
-  "body" | "params" | "query"
-> & {
-  body: T["Request"];
-  params: ExtractOrNever<T, "Params">;
-  query: ExtractOrNever<T, "Query">;
-} & (ExtractOrNever<T, "Middleware"> extends never
-    ? Record<string, never>
-    : ExtractOrNever<T, "Middleware">);
-
-/**
- * A typed async route handler that's directly compatible with Express Router
- */
-export type AsyncHandler<T extends HandlerShape> = RequestHandler<
-  ExtractOrNever<T, "Params">,
-  T["Response"] | ExtractOrNever<T, "Error">,
-  T["Request"],
-  ExtractOrNever<T, "Query">
-> & {
-  (
-    req: TypedRequest<T>,
-    res: Response<T["Response"] | ExtractOrNever<T, "Error">>,
-    next?: NextFunction
-  ): Promise<void> | void;
-};
+export type AsyncHandler<T extends CreateHandler> = (
+  req: Request<T["Params"], T["Response"], T["Request"], T["Query"]>,
+  res: Response<T["Response"]>,
+  next: NextFunction
+) => Promise<void> | void;
