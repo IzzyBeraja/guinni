@@ -1,10 +1,10 @@
-import { isNullOrEmptyString } from "@/utils/stings";
+import { isNullOrEmptyString } from "@/utils/stringUtils";
 import { drizzle, NodePgDatabase } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 
-import { users } from "@/models/tables/users";
-import { receipts } from "@/models/tables/receipts";
 import { receiptPermissions } from "@/models/tables/receiptPermissions";
+import { receipts } from "@/models/tables/receipts";
+import { users } from "@/models/tables/users";
 
 export type DatabaseSchema = {
   users: typeof users;
