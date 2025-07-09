@@ -7,9 +7,8 @@
     "server"
   ],
   "scripts": {
-    "start:client": "npm run start --workspace=client",
-    "start:server": "npm run dev --workspace=server",
-    "dev": "concurrently \"npm run start:client\" \"npm run start:server\"",
+    "start:client": "cd client && bun run start",
+    "start:server": "cd server && bun run dev",
     "lint": "eslint .",
     "docker:up": "docker-compose -f docker/docker-compose.yml --env-file docker/.env up -d",
     "docker:down": "docker-compose -f docker/docker-compose.yml --env-file docker/.env down",
